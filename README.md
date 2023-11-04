@@ -3,6 +3,7 @@
   <h3 align="center">Django - Proyecto Chat Grupo WebSocket</h3>
   
   [![Django][Django]][Django-url]
+  [![Javascript][Javascript.com]][Javascript-url]
   [![Bootstrap][Bootstrap.com]][Bootstrap-url]
   [![HTML5][HTML5.com]][HTML5-url]
   [![CSS3][CSS3.com]][CSS3-url]
@@ -51,7 +52,7 @@ Sigue estos pasos para instalar y configurar.
 
    Si tienes Git instalado y deseas clonar el repositorio, ejecuta el siguiente comando en tu terminal:
    ```sh
-   git clone https://github.com/HenryCCoillo/django-chat-group.git
+   git clone https://github.com/HenryCCoillo/django-login-registro.git   
    ```
    Si prefieres descargar manualmente el código fuente, puedes hacerlo desde el repositorio de GitHub.
 
@@ -110,6 +111,8 @@ Sigue estos pasos para instalar y configurar.
 [Django]: https://img.shields.io/badge/django-0C4B33?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 [Bootstrap-url]: https://getbootstrap.com
+[Javascript.com]: https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white
+[Javascript-url]: https://developer.mozilla.org/es/docs/Web/JavaScript
 [HTML5.com]: https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white
 [HTML5-url]: https://developer.mozilla.org/es/docs/Web/HTML
 [CSS3.com]: https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white

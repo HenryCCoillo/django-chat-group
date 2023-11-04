@@ -31,7 +31,7 @@ def register_view(request):
 
                 login(request, user)
                 return redirect('chat:index_view')
-    
+
     return render(request, 'chat/register.html', {'login_form': login_form, 'registro_form': registro_form})
 
 
@@ -45,8 +45,9 @@ def index_view(request):
     rooms = Room.objects.all()
     if request.method == 'POST':
         room_name = request.POST.get('room-name')
-        chat_room, created = Room.objects.get_or_create(name=room_name)
-        return redirect("chat:room_view",chat_room.slug)
+        if room_name:
+            chat_room, created = Room.objects.get_or_create(name=room_name)
+            return redirect("chat:room_view",chat_room.slug)
     return render(request, 'chat/index_view.html', {'rooms': rooms})
 
 @login_required
