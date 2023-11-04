@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Django Channel - Henry Ccoillo</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'chat.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/iziToast.min.css' %}">
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+                <form method="post" class="sign-in-form" onsubmit="return validateFormLogin()">
+                    {% csrf_token %}
+                    <h2 class="title">Iniciar Sesíon</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <!-- <input type="text" placeholder="Username" /> -->
+                        {{ login_form.username }}
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <!-- <input type="password" placeholder="Password" /> -->
+                        {{ login_form.password }}
+                    </div>
+                    <!-- <input type="submit" name="login" value="Iniciar Sesíon" class="sign-btn" /> -->
+                    <input type="submit" name="login" value="Login" class="btn solid" />                    
+                </form>
+
+
+                <form method="post" class="sign-up-form" onsubmit="return validateFormRegister()">
+                    {% csrf_token %}
+                    <h2 class="title">Registrarse</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <!-- <input type="text" placeholder="Username" /> -->
+                        {{registro_form.username}}
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        {{registro_form.password1}}
+                        <!-- <input type="email" placeholder="Email" /> -->
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        {{registro_form.password2}}
+                        <!-- <input type="password" placeholder="Password" /> -->
+                    </div>
+                    <input type="submit" name="register" class="btn" value="Sign up" />
+                    <!-- <input type="submit" name="register" value="Registrarte" class="sign-btn" /> -->
+                </form>
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Nuevo aquí ?</h3>
+                    <p>
+                      Experimenta la magia de la comunicación en tiempo real con Django Channels y participa en conversaciones significativas con personas.
+                    </p>
+                    <button class="btn transparent" id="sign-up-btn">
+                        Regístrate
+                    </button>
+                </div>
+                <img src="{% static 'img/log.svg' %}" class="image" alt="" />
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>¡Bienvenido de vuelta!</h3>
+                    <p>
+                      Ingresa tus credenciales para continuar disfrutando de nuestra plataforma de comunicación en tiempo real con Django Channels.
+                    </p>
+                    <button class="btn transparent" id="sign-in-btn">
+                      Iniciar Sesión
+                    </button>
+                </div>
+                <img src="{% static 'img/register.svg' %}" class="image" alt="" />
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/iziToast.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+
+ 
+        <script>
+                    
+const sign_in_btn = document.querySelector("#sign-in-btn");
+const sign_up_btn = document.querySelector("#sign-up-btn");
+const container = document.querySelector(".container");
+
+sign_up_btn.addEventListener("click", () => {
+    container.classList.add("sign-up-mode");
+    });
+
+sign_in_btn.addEventListener("click", () => {
+    container.classList.remove("sign-up-mode");
+    });
+
+function validateFormLogin() {
+    const lgUsername = document.querySelector(".lg-username").value;  
+    const lgPassword = document.querySelector(".lg-passwd").value;
+    const lgUsernameRegex = /^[a-zA-Z0-9_]+$/;
+
+    if (!lgUsernameRegex.test(lgUsername)) {
+        iziToast.error({
+            title: 'Error, Nombre de Usuario',
+            message: 'El nombre de usuario solo debe contener letras, números y guiones bajos (_).',
+            position: 'topCenter'
+        });
+        return false;
+    }
+    
+    if (lgPassword.length < 1) {
+        iziToast.error({
+            title: 'Error, Contraseña',
+            message: 'Ingrese su contraseña.',
+            position: 'topCenter'
+        });
+        return false;
+    }
+    
+    return true;
+    }
+
+function validateFormRegister() {
+    console.log("asdasaaaaaaaa");
+    const rgUsername = document.querySelector(".rg-username").value;
+    const rgPassword = document.querySelector(".rg-passwd").value;
+    const rgPasswordConf = document.querySelector(".rg-passwd-conf").value;
+    const rgUsernameRegex = /^[a-zA-Z0-9_]+$/;
+    const rgPasswordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    
+    if (!rgUsernameRegex.test(rgUsername)) {
+        iziToast.error({
+            title: 'Error, Nombre de Usuario',
+            message: 'El nombre de usuario solo debe contener letras, números y guiones bajos (_).',
+            position: 'topCenter'
+        });
+        return false;
+    }
+
+    if (!rgPasswordRegex.test(rgPassword)) {
+        iziToast.error({
+            title: 'Error, Contraseña',
+            message: 'La contraseña debe tener al menos 8 caracteres, una mayúscula y un carácter especial.',
+            position: 'topCenter'
+        });
+        return false;
+    }
+
+    if (rgPassword !== rgPasswordConf) {
+        iziToast.error({
+            title: 'Error, Contraseña',
+            message: 'Las contraseñas no coinciden.',
+            position: 'topCenter'
+        });
+        return false;
+    }
+                
+    return true;
+}
+
+        </script>
+
+    {% if login_form.errors %}
+    <script>
+        swal('Error!','{% for field, error_list in login_form.errors.items %}{% for error in error_list %}{{ error }}{% endfor %}{% endfor %}', 'error');        
+    </script>
+    {% endif %}
+
+    {% if registro_form.errors %}
+    <script>
+        const errorsList = [{% for field, error_list in registro_form.errors.items %}"{% for error in error_list %}{{ error }}{% endfor %}",{% endfor %}];
+        const errorsText = errorsList.join('\n');
+        swal('Error!', errorsText, 'error');
+    </script>
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Lista de Sala</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'chat.ico' %}">
+        <title>Lista de Usuarios Personalizados</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
+    
+        <link rel="stylesheet" href="{% static 'css/app-chat.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/scrollbar.css' %}">
+        <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <style>
+            #roomSelect {
+                height: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-3 p-5">
+            <h2>Django Channels Group</h2>
+            <div class="position-relative top-0 end-0 text-end pb-3">
+                <a href="{% url 'chat:signoff' %}" class="btn btn-danger button-49 text-end" style="display: inline-block; text-align: center;text-decoration: none;">Cerrar Session</a>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="mb-2">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="forms-group">
+                                <label for="roomInput">Si la sala aún no existe, se creará para usted:</label>
+                                <input type="text" class="form-control" name="room-name">
+                                <small id="roomInputHelp" class="form-text text-muted">Ingrese el nombre de una Sala para conectarse a ella:</small>
+                                <br>
+                                <button type="submit" class="btn btn-primary mt-3">Conectar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    
+                        
+                </div>                
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                    <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0 me-2">Salas Activas</h5>                        
+                    </div>
+                    <div class="card-body">
+                        <ul class="p-0 m-0">
+                            {% if rooms %}
+                            {% for room in rooms %}
+                                <li class="d-flex mb-2 pb-1">
+                                    <a href="{{room.get_absolute_url}}" style="width: 100%">
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between">
+                                            <div class="me-2">
+                                                <span class="mb-0">{{room.name}}</span>                                        
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            {% endif %}
+                            <!-- <li class="d-flex mb-4 pb-1">
+                                <a href="#" style="width: 100%">
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <span class="mb-0">Send money</span>                                        
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="d-flex mb-4 pb-1">
+                                <a href="#" style="width: 100%">
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <span class="mb-0">Send money</span>                                        
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="d-flex mb-4 pb-1">
+                                <a href="#" style="width: 100%">
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <span class="mb-0">Send money</span>                                        
+                                        </div>
+                                    </div>
+                                </a>
+                            </li> -->
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
